@@ -1806,7 +1806,7 @@ GameObject:
   - component: {fileID: 758536859}
   - component: {fileID: 758536858}
   - component: {fileID: 758536860}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Rifle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2827,7 +2827,7 @@ GameObject:
   - component: {fileID: 1530067706}
   - component: {fileID: 1530067708}
   - component: {fileID: 1530067707}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3174,7 +3174,7 @@ GameObject:
   - component: {fileID: 1623636424}
   - component: {fileID: 1623636427}
   - component: {fileID: 1623636425}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3453,7 +3453,7 @@ GameObject:
   - component: {fileID: 1952017159}
   - component: {fileID: 1952017158}
   - component: {fileID: 1952017162}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3489,7 +3489,7 @@ Animator:
   m_Controller: {fileID: 9100000, guid: 7e556f4ba8520c048b190b0f8c14771e, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
-  m_ApplyRootMotion: 0
+  m_ApplyRootMotion: 1
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
