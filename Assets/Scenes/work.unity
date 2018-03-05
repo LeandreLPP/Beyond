@@ -3565,11 +3565,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camera: {fileID: 65784363}
-  minimumDistance: 0
+  minimumDistance: 2
   maximumDistance: 10
-  thirdPersonOffsetAngle: 10
+  thirdPersonOffsetSide: 0
+  thirdPersonOffsetHeight: 10
   fovChangingSpeed: 10
-  cameraOnRight: 0
+  cameraOnRight: 1
 --- !u!114 &1952017163
 MonoBehaviour:
   m_ObjectHideFlags: 0

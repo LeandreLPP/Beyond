@@ -31,13 +31,14 @@ public class PlayerInputController : MonoBehaviour, IShooter {
         moveController.Direction = Vector3.zero;
         moveController.Crouching = false;
 
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
         Weapon = rangedWeapon;
 	}
     
     void Update()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
 
         ListenMovementInputs();
         ListenCameraMovements();
