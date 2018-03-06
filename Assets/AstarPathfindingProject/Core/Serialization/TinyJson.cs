@@ -122,7 +122,16 @@ namespace Pathfinding.Serialization {
 			}
 
 			output.Append("{");
-			QuotedField("Name", obj.name);
+			var path = obj.name;
+#if UNITY_EDITOR
+			// Figure out the path of the object relative to a Resources folder.
+			// In a standalone player this cannot be done unfortunately, so we will assume it is at the top level in the Resources folder.
+			// Fortunately it should be extremely rare to have to serialize references to unity objects in a standalone player.
+			var realPath = UnityEditor.AssetDatabase.GetAssetPath(obj);
+			var match = System.Text.RegularExpressions.Regex.Match(realPath, @"Resources/(.*?)(\.\w+)?$");
+			if (match != null) path = match.Groups[1].Value;
+#endif
+			QuotedField("Name", path);
 			output.Append(", ");
 			QuotedField("Type", obj.GetType().FullName);
 

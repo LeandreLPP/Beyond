@@ -135,7 +135,8 @@ namespace Pathfinding {
 			content.tooltip = tooltip ?? FindTooltip(propertyPath);
 			var contextClick = IsContextClick();
 			EditorGUILayout.PropertyField(prop, content, true, noOptions);
-			if (contextClick && Event.current.type == EventType.Used) CaptureContextClick(propertyPath);
+			// Disable context clicking on arrays (as Unity has its own very useful context menu for the array elements)
+			if (contextClick && !prop.isArray && Event.current.type == EventType.Used) CaptureContextClick(propertyPath);
 			return prop.propertyType == SerializedPropertyType.Boolean ? !prop.hasMultipleDifferentValues && prop.boolValue : true;
 		}
 

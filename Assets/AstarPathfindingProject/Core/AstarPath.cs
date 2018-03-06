@@ -26,7 +26,7 @@ using Thread = System.Threading.Thread;
 [HelpURL("http://arongranberg.com/astar/docs/class_astar_path.php")]
 public class AstarPath : VersionedMonoBehaviour {
 	/** The version number for the A* %Pathfinding Project */
-	public static readonly System.Version Version = new System.Version(4, 1, 11);
+	public static readonly System.Version Version = new System.Version(4, 1, 12);
 
 	/** Information about where the package was downloaded */
 	public enum AstarDistribution { WebsiteDownload, AssetStore };

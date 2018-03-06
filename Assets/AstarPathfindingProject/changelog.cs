@@ -1,6 +1,10 @@
 /** \page changelog Changelog
 \order{-10}
 
+- 4.1.12 (2018-02-27)
+	- Fixed right clicking on array elements in the Unity inspector would bring up the 'Show in online documentation' context menu instead of the Unity built-in context menu (which is very useful).
+	- Navmesh assets used in the navmesh graph no longer have to be at the root of the Resources folder, they can be in any subfolder to the Resources folder.
+
 - 4.1.11 (2018-02-22)
 	- You can now set which graphs an agent should use directly on the Seeker component instead of having to do it through code.
 		\shadowimage{multiple_agents/seeker.png}
