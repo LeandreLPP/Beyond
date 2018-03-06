@@ -63,7 +63,7 @@ public class PlayerCameraController : MonoBehaviour {
         RaycastHit hit;
         
         float trueDistance = CurrentDistance;
-        var mask = ~(1 << gameObject.layer); // Mask "IgnoreRaycast"
+        int mask = ~(1 << gameObject.layer); // Mask "IgnoreRaycast"
         var globalDir = Quaternion.AngleAxis(transform.eulerAngles.y, Vector3.up) * anglePosition;
         if(Physics.Raycast(transform.position + offsetPos, globalDir, out hit, CurrentDistance, mask))
             trueDistance = hit.distance;

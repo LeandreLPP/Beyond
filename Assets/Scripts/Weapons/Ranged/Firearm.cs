@@ -177,7 +177,7 @@ public class Firearm : RangedWeapon
     protected override void LaunchProjectile(Vector3 origin, Vector3 direction)
     {
         RaycastHit raycastHit;
-        if (!Physics.Raycast(new Ray(origin, direction), out raycastHit, range))
+        if (!Physics.Raycast(origin, direction, out raycastHit, range))
             return;
 
         Instantiate(impact, raycastHit.point, new Quaternion());

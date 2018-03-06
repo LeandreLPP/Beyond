@@ -153,13 +153,16 @@ public class PlayerInputController : MonoBehaviour, IShooter {
         int x = Screen.width / 2;
         int y = Screen.height / 2;
 
+        var trueOrigin = (Weapon.transform.position + Weapon.shotOrigin);
+        Vector3 dir;
+
         Ray ray = cam.ScreenPointToRay(new Vector3(x, y));
         RaycastHit info;
-        var mask = ~(1 << gameObject.layer); // Mask "IgnoreRaycast"
-        Physics.Raycast(ray, out info, mask);
-
-        var trueOrigin = (Weapon.transform.position + Weapon.shotOrigin);
-        var dir = info.point - trueOrigin;
+        int mask = ~(1 << gameObject.layer); // Mask "IgnoreRaycast"
+        if(Physics.Raycast(ray, out info, 500f, mask))
+            dir = info.point - trueOrigin;
+        else
+            dir = ray.direction;
 
         Weapon.ShootDirection = dir;
     }
