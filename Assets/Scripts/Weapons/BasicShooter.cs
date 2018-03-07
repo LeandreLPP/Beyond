@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-public class BasicShooter : MonoBehaviour, IShooter
+public class BasicShooter : IShooter
 {
     public RangedWeapon rangedWeapon;
     public float recoilRecover = 2f;
@@ -14,11 +14,11 @@ public class BasicShooter : MonoBehaviour, IShooter
 
     void Start()
     {
-        Weapon = rangedWeapon;
+        RangedWeapon = rangedWeapon;
     }
 
     #region Shooter
-    public RangedWeapon Weapon
+    public override RangedWeapon RangedWeapon
     {
         get
         {
@@ -30,11 +30,20 @@ public class BasicShooter : MonoBehaviour, IShooter
             if (rangedWeapon != null)
                 rangedWeapon.Shooter = null;
             rangedWeapon = value;
-            rangedWeapon.Shooter = this;
+            if(rangedWeapon != null)
+                rangedWeapon.Shooter = this;
         }
     }
 
-    public virtual void ApplyRecoil(Vector3 recoil)
+    public override IWeapon Weapon
+    {
+        get
+        {
+            return RangedWeapon;
+        }
+    }
+
+    public override void ApplyRecoil(Vector3 recoil)
     {
         recoilAccumulated += recoil;
     }

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class ShooterHUD : MonoBehaviour {
 
-    public PlayerInputController shooter;
+    public PlayerCarrier shooter;
     
     public GameObject ammoTextGameObject;
     public GameObject reloadTextGameObject;
@@ -23,8 +23,8 @@ public class ShooterHUD : MonoBehaviour {
 	void Update () {
         Firearm firearm = null;
 
-        if (shooter.Weapon != null && shooter.Weapon is Firearm)
-            firearm = shooter.Weapon as Firearm; 
+        if (shooter.RangedWeapon != null && shooter.RangedWeapon is Firearm)
+            firearm = shooter.RangedWeapon as Firearm; 
 
         string text = "No weapon";
         if (firearm != null)
@@ -45,7 +45,7 @@ public class ShooterHUD : MonoBehaviour {
         }
         ammoText.text = text;
 
-        if (firearm.Reloading)
+        if (firearm != null && firearm.Reloading)
         {
             reloadText.enabled = true;
             var time = Mathf.Floor(firearm.ReloadRemaining * 10) / 10;

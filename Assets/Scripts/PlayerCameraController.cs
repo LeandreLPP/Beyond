@@ -37,18 +37,8 @@ public class PlayerCameraController : MonoBehaviour {
         camera.transform.SetParent(transform);
         CurrentDistance = maximumDistance;
         FieldOfView = camera.fieldOfView;
-        //ray = new Ray(); // Debug
     }
-
-    /*Ray ray;
-    Vector3 offsetPosGizmos;
-    Vector3 dirGizmos;
-    private void OnDrawGizmos() // Debug
-    {
-        Gizmos.DrawSphere(offsetPosGizmos, 0.1f);
-        Gizmos.DrawCube(offsetPosGizmos + dirGizmos*2, new Vector3(0.1f, 0.1f, 0.1f));
-        Gizmos.DrawRay(ray);
-    }*/
+    
 
     void Update ()
     {

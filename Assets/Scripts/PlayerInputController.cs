@@ -4,23 +4,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(MovementController), typeof(PlayerCameraController))]
-public class PlayerInputController : MonoBehaviour, IShooter {
+public class PlayerInputController : MonoBehaviour {
 
     #region Settings
     public float mouseSensibility = 50f;
     public float mouseZoomSensibility = 50f;
-
-    public RangedWeapon rangedWeapon;
-    public float recoilRecover = 2f;
-    public float maxRecoil = 10f;
     #endregion
 
     #region Protected fields
     protected MovementController moveController;
     protected PlayerCameraController cameraController;
     protected MovementState orderState;
-
-    protected Vector3 recoilAccumulated = new Vector3();
     #endregion
     
     void Start () {
@@ -33,19 +27,12 @@ public class PlayerInputController : MonoBehaviour, IShooter {
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-
-        Weapon = rangedWeapon;
 	}
     
     void Update()
     {
-
         ListenMovementInputs();
         ListenCameraMovements();
-        ListenShootingInputs();
-        SetWeaponDirection();
-
-        RecoverRecoil();
     }
 
     private void ListenMovementInputs()
@@ -88,8 +75,11 @@ public class PlayerInputController : MonoBehaviour, IShooter {
         // If no direction, stop moving
         if (direction.magnitude != 0)
         {
+            var shooterComponent = GetComponent<IShooter>();
             // Can't move faster than walking if aiming
-            if (rangedWeapon && rangedWeapon.IsAiming)
+            if (shooterComponent != null && 
+                shooterComponent.RangedWeapon != null && 
+                shooterComponent.RangedWeapon.IsAiming)
                 moveController.MovementState = MovementState.Walking;
             else
                 moveController.MovementState = orderState;
@@ -116,87 +106,4 @@ public class PlayerInputController : MonoBehaviour, IShooter {
         if (Input.GetButtonDown("ToggleCam"))
             cameraController.cameraOnRight = !cameraController.cameraOnRight;
     }
-
-    private void ListenShootingInputs()
-    {
-        if (rangedWeapon == null)
-            return;
-
-        if (Input.GetButtonDown("Fire"))
-            rangedWeapon.PullTrigger();
-        else if (Input.GetButtonUp("Fire"))
-            rangedWeapon.ReleaseTrigger();
-
-        if (Input.GetButtonDown("Aim"))
-        {
-            rangedWeapon.StartAiming();
-            cameraController.FieldOfView /= 1.5f;
-        }
-        else if (Input.GetButtonUp("Aim"))
-        {
-            rangedWeapon.StopAiming();
-            cameraController.FieldOfView *= 1.5f;
-        }
-
-        if (Input.GetButtonDown("Firemode"))
-            if (rangedWeapon is Firearm)
-                (rangedWeapon as Firearm).CycleMode();
-
-        if (Input.GetButtonDown("Reload"))
-            if (rangedWeapon is Firearm)
-                (rangedWeapon as Firearm).Reload();
-    }
-
-    private void SetWeaponDirection()
-    {
-        var cam = cameraController.camera;
-        int x = Screen.width / 2;
-        int y = Screen.height / 2;
-
-        var trueOrigin = (Weapon.transform.position + Weapon.shotOrigin);
-        Vector3 dir;
-
-        Ray ray = cam.ScreenPointToRay(new Vector3(x, y));
-        RaycastHit info;
-        int mask = ~(1 << gameObject.layer); // Mask "IgnoreRaycast"
-        if(Physics.Raycast(ray, out info, 500f, mask))
-            dir = info.point - trueOrigin;
-        else
-            dir = ray.direction;
-
-        Weapon.ShootDirection = dir;
-    }
-
-    #region Inheritances
-    #region Shooter
-    public RangedWeapon Weapon
-    {
-        get
-        {
-            return rangedWeapon;
-        }
-
-        set
-        {
-            if (rangedWeapon != null)
-                rangedWeapon.Shooter = null;
-            rangedWeapon = value;
-            rangedWeapon.Shooter = this;
-        }
-    }
-
-    public void ApplyRecoil(Vector3 recoil)
-    {
-        transform.Rotate(0, recoil.y, 0);
-        cameraController.CurrentAngle += recoil.x;
-        recoilAccumulated += recoil;
-    }
-
-    private void RecoverRecoil()
-    {
-        var recovering = -recoilAccumulated.normalized * recoilRecover * Time.deltaTime * (recoilAccumulated.magnitude);
-        ApplyRecoil(recovering);
-    }
-    #endregion
-    #endregion
 }
