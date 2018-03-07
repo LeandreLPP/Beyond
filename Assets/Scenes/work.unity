@@ -1704,12 +1704,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 758536856}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5, y: -0, z: 0.3}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.1, y: 0.2, z: 1}
   m_Children: []
-  m_Father: {fileID: 1952017160}
-  m_RootOrder: 2
+  m_Father: {fileID: 1617078143}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &758536858
 MeshRenderer:
@@ -3149,6 +3149,35 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1616416240}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1617078142
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1617078143}
+  m_Layer: 2
+  m_Name: Hand
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1617078143
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1617078142}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.5, y: 0, z: 0.3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 758536857}
+  m_Father: {fileID: 1952017160}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1623636423
 GameObject:
   m_ObjectHideFlags: 0
@@ -3306,7 +3335,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29d70874c4799384187bd7c01bc6b4bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rack: {fileID: 2115118515}
+  hand: {fileID: 2115118515}
 --- !u!1 &1745846798
 GameObject:
   m_ObjectHideFlags: 0
@@ -3674,7 +3703,7 @@ Transform:
   m_Children:
   - {fileID: 1623636424}
   - {fileID: 1530067706}
-  - {fileID: 758536857}
+  - {fileID: 1617078143}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3739,6 +3768,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 051d51aadca4ea34b9284d727903eaac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hand: {fileID: 1617078142}
   rangedWeapon: {fileID: 758536860}
   recoilRecover: 2
   maxRecoil: 10

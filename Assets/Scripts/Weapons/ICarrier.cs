@@ -2,7 +2,9 @@
 
 public abstract class ICarrier : MonoBehaviour
 {
-    public abstract IWeapon Weapon { get; }
+    public GameObject hand;
+
+    public abstract IWeapon Weapon { get; protected set; }
 
     public abstract bool AcceptWeapon(IWeapon weapon);
 
@@ -10,10 +12,11 @@ public abstract class ICarrier : MonoBehaviour
     {
         if(weapon != null)
         {
-            weapon.transform.SetParent(transform);
+            weapon.transform.SetParent(hand.transform);
             weapon.transform.localPosition = Vector3.zero;
             weapon.transform.localEulerAngles = Vector3.zero;
         }
+        Weapon = weapon;
         return true;
     }
 }

@@ -41,6 +41,11 @@ public class BasicShooter : IShooter
         {
             return RangedWeapon;
         }
+
+        protected set
+        {
+            RangedWeapon = value as RangedWeapon;
+        }
     }
 
     public override void ApplyRecoil(Vector3 recoil)
