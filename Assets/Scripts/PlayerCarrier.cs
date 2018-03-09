@@ -26,10 +26,7 @@ public class PlayerCarrier : BasicShooter
 
     private void ListenShootingInputs()
     {
-        if (!RangedWeapon)
-            return;
-
-        if (rangedWeapon == null)
+        if (RangedWeapon == null)
             return;
 
         if (Input.GetButtonDown("Fire"))
@@ -59,24 +56,23 @@ public class PlayerCarrier : BasicShooter
 
     private void SetWeaponDirection()
     {
-        if (!RangedWeapon)
+        if (RangedWeapon == null)
             return;
         var cam = cameraController.camera;
         int x = Screen.width / 2;
         int y = Screen.height / 2;
-
-        var trueOrigin = (RangedWeapon.transform.position + RangedWeapon.shotOrigin);
+        
         Vector3 dir;
 
         Ray ray = cam.ScreenPointToRay(new Vector3(x, y));
         RaycastHit info;
         int mask = ~(1 << gameObject.layer); // Mask "IgnoreRaycast"
         if (Physics.Raycast(ray, out info, 500f, mask))
-            dir = info.point - trueOrigin;
+            dir = info.point;
         else
-            dir = ray.direction;
+            dir = ray.direction * 500f;
 
-        RangedWeapon.ShootDirection = dir;
+        RangedWeapon.ShootTarget = dir;
     }
 
     public override void ApplyRecoil(Vector3 recoil)

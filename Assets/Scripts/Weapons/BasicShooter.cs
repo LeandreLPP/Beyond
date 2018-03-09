@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-public class BasicShooter : IShooter
+public class BasicShooter : AbstractShooter
 {
     public RangedWeapon rangedWeapon;
     public float recoilRecover = 2f;
@@ -25,7 +25,7 @@ public class BasicShooter : IShooter
             return rangedWeapon;
         }
 
-        set
+        protected set
         {
             if (rangedWeapon != null)
                 rangedWeapon.Shooter = null;

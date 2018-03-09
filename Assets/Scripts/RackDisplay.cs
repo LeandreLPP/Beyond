@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class RackDisplay : ICarrier {
+public class RackDisplay : AbstractCarrier {
 
     public override IWeapon Weapon
     {
@@ -15,7 +15,7 @@ public class RackDisplay : ICarrier {
     private void OnTriggerEnter(Collider other)
     {
         var carrier = other.gameObject.GetComponent<ICarrier>();
-        if(carrier && carrier.AcceptWeapon(Weapon))
+        if(carrier != null && carrier.AcceptWeapon(Weapon))
         {
             var weapExt = carrier.Weapon;
             carrier.TryEquip(Weapon);

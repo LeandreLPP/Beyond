@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class RangedWeapon : IWeapon  {
+public abstract class RangedWeapon : MonoBehaviour, IWeapon  {
 
     #region Settings
     public Vector3 shotOrigin = Vector3.zero;
@@ -15,7 +15,7 @@ public abstract class RangedWeapon : IWeapon  {
     #endregion
 
     #region IWeapon inheritance
-    public override ICarrier Carrier
+    public virtual ICarrier Carrier
     {
         get
         {
@@ -47,10 +47,11 @@ public abstract class RangedWeapon : IWeapon  {
         }
     }
 
-    public Vector3 ShootDirection
+    public Vector3 ShootTarget
     {
         get; set;
     }
+
     public bool IsAiming { get { return aiming; } }
 
     public abstract void PullTrigger();
@@ -70,12 +71,13 @@ public abstract class RangedWeapon : IWeapon  {
     #region Protected methods
     protected virtual void Shoot()
     {
+        var shootDirection = ShootTarget - (transform.position + shotOrigin);
         var actualDispertion = Random.Range(0f, aiming ? aimedDispertion : dispertionAngle);
-        var axis = new Vector3(ShootDirection.z, 0, -ShootDirection.x);
-        var direction = Quaternion.AngleAxis(actualDispertion, axis) * ShootDirection;
+        var axis = new Vector3(shootDirection.z, 0, -shootDirection.x);
+        var direction = Quaternion.AngleAxis(actualDispertion, axis) * shootDirection;
 
         var rand = Random.Range(0f, 360f);
-        direction = Quaternion.AngleAxis(rand, ShootDirection) * direction;
+        direction = Quaternion.AngleAxis(rand, shootDirection) * direction;
 
         LaunchProjectile(transform.position + shotOrigin, direction);
     }
