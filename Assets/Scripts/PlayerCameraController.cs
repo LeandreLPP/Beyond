@@ -29,7 +29,20 @@ public class PlayerCameraController : MonoBehaviour {
             currentDistance = Mathf.Max(minimumDistance, Mathf.Min(maximumDistance, value));
         }
     }
-    public float CurrentAngle { get; set; }
+    private float currentAngle = 0;
+    public float CurrentAngle
+    {
+        get
+        {
+            return currentAngle;
+        }
+
+        set
+        {
+            currentAngle = Mathf.Max(-90, Mathf.Min(90, value));
+        }
+    }
+
     public float FieldOfView { get; set; }
 
     private void Start()
