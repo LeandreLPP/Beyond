@@ -14,9 +14,10 @@ public class MovementController : MonoBehaviour {
 
     public float speedInfluenceOnJump = 0.05f;
 
-    public float midairSpeed = 10f;
+    public float midairSpeed = 1f;
     public float jumpingStrengh = 5f;
     public float gravityDivider = 3.5f;
+    public float maxFallSpeed = 10f;
     #endregion
 
     #region Public methods
@@ -127,6 +128,7 @@ public class MovementController : MonoBehaviour {
             movement = (lastMovement + (directionShift * midairSpeed)) * Time.fixedDeltaTime;
         }
         movement += Physics.gravity/gravityDivider * Time.fixedDeltaTime;
+        movement.y = Mathf.Max(movement.y, -(Mathf.Abs(maxFallSpeed)));
 
         controller.Move(movement);
         lastMovement = movement/Time.fixedDeltaTime; // TODO May need to be improved to account for collisions
