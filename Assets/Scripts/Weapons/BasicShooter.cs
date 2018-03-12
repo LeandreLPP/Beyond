@@ -4,49 +4,25 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-public class BasicShooter : AbstractShooter
+public class BasicShooter : ACarrier
 {
     public RangedWeapon rangedWeapon;
+
     public float recoilRecover = 2f;
     public float maxRecoil = 10f;
 
     protected Vector3 recoilAccumulated = new Vector3();
 
-    void Start()
+    protected virtual void Start()
     {
-        RangedWeapon = rangedWeapon;
+        Equip(rangedWeapon);
     }
 
+    protected virtual void Update()
+    {
+        RecoverRecoil();
+    }
     #region Shooter
-    public override RangedWeapon RangedWeapon
-    {
-        get
-        {
-            return rangedWeapon;
-        }
-
-        protected set
-        {
-            if (rangedWeapon != null)
-                rangedWeapon.Shooter = null;
-            rangedWeapon = value;
-            if(rangedWeapon != null)
-                rangedWeapon.Shooter = this;
-        }
-    }
-
-    public override IWeapon Weapon
-    {
-        get
-        {
-            return RangedWeapon;
-        }
-
-        protected set
-        {
-            RangedWeapon = value as RangedWeapon;
-        }
-    }
 
     public override void ApplyRecoil(Vector3 recoil)
     {
@@ -57,6 +33,11 @@ public class BasicShooter : AbstractShooter
     {
         var recovering = -recoilAccumulated.normalized * recoilRecover * Time.deltaTime * (recoilAccumulated.magnitude);
         ApplyRecoil(recovering);
+    }
+
+    public override bool CanSwap(AWeapon newWeapon)
+    {
+        return newWeapon is RangedWeapon;
     }
     #endregion
 }

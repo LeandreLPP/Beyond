@@ -128,7 +128,8 @@ public class MovementController : MonoBehaviour {
             movement = (lastMovement + (directionShift * midairSpeed)) * Time.fixedDeltaTime;
         }
         movement += Physics.gravity/gravityDivider * Time.fixedDeltaTime;
-        movement.y = Mathf.Max(movement.y, -(Mathf.Abs(maxFallSpeed)));
+        if(maxFallSpeed != 0) // Capped max fall speed
+            movement.y = Mathf.Max(movement.y, -(Mathf.Abs(maxFallSpeed)));
 
         controller.Move(movement);
         lastMovement = movement/Time.fixedDeltaTime; // TODO May need to be improved to account for collisions

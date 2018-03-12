@@ -1,32 +1,29 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class PlayerCarrier : BasicShooter
 {
 
     protected PlayerCameraController cameraController;
 
-
     // Use this for initialization
-    void Start()
+    protected override void Start()
     {
-        RangedWeapon = rangedWeapon;
+        base.Start();
+        //Equip(rangedWeapon);
         cameraController = GetComponent<PlayerCameraController>();
-        recoilAccumulated = Vector3.zero;
     }
 
     // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
+        base.Update();
         ListenShootingInputs();
         SetWeaponDirection();
-
-        RecoverRecoil();
     }
 
     private void ListenShootingInputs()
     {
-        if (RangedWeapon == null)
+        if (Weapon == null)
             return;
 
         if (Input.GetButtonDown("Fire"))
@@ -56,7 +53,7 @@ public class PlayerCarrier : BasicShooter
 
     private void SetWeaponDirection()
     {
-        if (RangedWeapon == null)
+        if (Weapon == null)
             return;
         var cam = cameraController.camera;
         int x = Screen.width / 2;
@@ -72,13 +69,13 @@ public class PlayerCarrier : BasicShooter
         else
             dir = ray.direction * 500f;
 
-        RangedWeapon.ShootTarget = dir;
+        (Weapon as RangedWeapon).ShootTarget = dir;
     }
 
     public override void ApplyRecoil(Vector3 recoil)
     {
+        base.ApplyRecoil(recoil);
         transform.Rotate(0, recoil.y, 0);
         cameraController.CurrentAngle += recoil.x;
-        recoilAccumulated += recoil;
     }
 }

@@ -23,8 +23,8 @@ public class ShooterHUD : MonoBehaviour {
 	void Update () {
         Firearm firearm = null;
 
-        if (shooter.RangedWeapon != null && shooter.RangedWeapon is Firearm)
-            firearm = shooter.RangedWeapon as Firearm; 
+        if (shooter.Weapon != null && shooter.Weapon is Firearm)
+            firearm = shooter.Weapon as Firearm; 
 
         string text = "No weapon";
         if (firearm != null)

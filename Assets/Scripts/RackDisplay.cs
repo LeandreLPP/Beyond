@@ -3,28 +3,37 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class RackDisplay : AbstractCarrier {
-
-    public override IWeapon Weapon
-    {
-        get;
-
-        protected set;
-    }
+public class RackDisplay : ACarrier {
+    
 
     private void OnTriggerEnter(Collider other)
     {
         var carrier = other.gameObject.GetComponent<ICarrier>();
-        if(carrier != null && carrier.AcceptWeapon(Weapon))
+        if (carrier != null)
         {
-            var weapExt = carrier.Weapon;
-            carrier.TryEquip(Weapon);
-            TryEquip(weapExt);
+            if (carrier.CanEquip(Weapon))
+            {
+                var weapExt = carrier.Weapon;
+                carrier.Equip(Weapon);
+                Equip(weapExt);
+            }
+            else if (Weapon == null)
+            {
+                var weapExt = carrier.UnequipWeapon();
+                Equip(weapExt);
+            }
         }
     }
 
-    public override bool AcceptWeapon(IWeapon weapon)
+    public override bool CanEquip(AWeapon weapon)
     {
         return true;
     }
+
+    public override bool CanSwap(AWeapon newWeapon)
+    {
+        return true;
+    }
+
+    public override void ApplyRecoil(Vector3 recoil) { }
 }

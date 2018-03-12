@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class RangedWeapon : MonoBehaviour, IWeapon  {
+public abstract class RangedWeapon : AWeapon  {
 
     #region Settings
     public Vector3 shotOrigin = Vector3.zero;
@@ -15,38 +15,13 @@ public abstract class RangedWeapon : MonoBehaviour, IWeapon  {
     #endregion
 
     #region IWeapon inheritance
-    public virtual ICarrier Carrier
+    public override ICarrier Carrier
     {
-        get
-        {
-            return Shooter;
-        }
-
-        set
-        {
-            if (value is IShooter)
-                Shooter = value as IShooter;
-            else
-                Shooter = null;
-        }
+        get; set;
     }
     #endregion
 
     #region Public methods
-    private IShooter shooter;
-
-    public IShooter Shooter
-    {
-        get
-        {
-            return shooter;
-        }
-        set
-        {
-            shooter = value;
-        }
-    }
-
     public Vector3 ShootTarget
     {
         get; set;

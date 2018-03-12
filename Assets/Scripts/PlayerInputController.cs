@@ -75,11 +75,12 @@ public class PlayerInputController : MonoBehaviour {
         // If no direction, stop moving
         if (direction.magnitude != 0)
         {
-            var shooterComponent = GetComponent<IShooter>();
+            var shooterComponent = GetComponent<ICarrier>();
             // Can't move faster than walking if aiming
             if (shooterComponent != null && 
-                shooterComponent.RangedWeapon != null && 
-                shooterComponent.RangedWeapon.IsAiming)
+                shooterComponent.Weapon != null && 
+                shooterComponent is RangedWeapon &&
+                (shooterComponent as RangedWeapon).IsAiming)
                 moveController.MovementState = MovementState.Walking;
             else
                 moveController.MovementState = orderState;

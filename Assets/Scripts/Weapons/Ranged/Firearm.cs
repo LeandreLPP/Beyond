@@ -118,7 +118,7 @@ public class Firearm : RangedWeapon
             var recoilX = UnityEngine.Random.Range(minRecoil.x, maxRecoil.x);
             var recoilY = UnityEngine.Random.Range(minRecoil.y, maxRecoil.y);
             var recoil = new Vector3(recoilX, recoilY);
-            Shooter.ApplyRecoil(recoil);
+            Carrier.ApplyRecoil(recoil);
             lastShot = Time.fixedTime;
         }
     }
