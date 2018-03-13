@@ -4,7 +4,14 @@ using UnityEngine;
 
 
 public class RackDisplay : ACarrier {
-    
+
+    public AWeapon weapon;
+
+    private void Start()
+    {
+        if (weapon != null)
+            Equip(weapon);
+    }
 
     private void OnTriggerEnter(Collider other)
     {

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-public class BasicShooter : ACarrier
+public class BasicCarrier : ACarrier
 {
-    public RangedWeapon rangedWeapon;
+    public AWeapon weapon;
 
     public float recoilRecover = 2f;
     public float maxRecoil = 10f;
@@ -15,7 +15,7 @@ public class BasicShooter : ACarrier
 
     protected virtual void Start()
     {
-        Equip(rangedWeapon);
+        Equip(weapon);
     }
 
     protected virtual void Update()
@@ -37,7 +37,7 @@ public class BasicShooter : ACarrier
 
     public override bool CanSwap(AWeapon newWeapon)
     {
-        return newWeapon is RangedWeapon;
+        return true;
     }
     #endregion
 }

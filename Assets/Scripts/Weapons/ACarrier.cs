@@ -13,7 +13,13 @@ public abstract class ACarrier : MonoBehaviour, ICarrier
     }
 
     public virtual AWeapon Weapon { get; protected set; }
-    
+
+    public Animator Animator {
+        get {
+            return GetComponent<Animator>();
+        }
+    }
+
     public virtual bool CanEquip(AWeapon otherWeapon)
     {
         return Weapon == null;

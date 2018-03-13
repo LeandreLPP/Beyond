@@ -14,5 +14,6 @@ public interface ICarrier
     #endregion
 
     #region Melee
+    Animator Animator { get; }
     #endregion
 }
