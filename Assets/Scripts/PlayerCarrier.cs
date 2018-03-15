@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class PlayerCarrier : BasicCarrier
 {
@@ -16,65 +17,60 @@ public class PlayerCarrier : BasicCarrier
     protected override void Update()
     {
         base.Update();
-        ListenShootingInputs();
+        if (Weapon == null)
+            return;
+
+        if (Weapon is RangedWeapon)
+            ListenShootingInputs();
+        else if (Weapon is MeleeWeapon)
+            ListenMeleeInputs();
+
         SetWeaponDirection();
+    }
+
+    private void ListenMeleeInputs()
+    {
+        var meleeWeapon = Weapon as MeleeWeapon;
+        if (Input.GetButtonDown("Fire"))
+            meleeWeapon.QuickStrike();
+
+        if (Input.GetButtonDown("Aim"))
+            meleeWeapon.Parry();
+
+        if (Input.GetButtonDown("Firemode"))
+            meleeWeapon.StrongStrike();
+
+        if (Input.GetButtonDown("Reload"))
+            meleeWeapon.SprecialStrike();
     }
 
     private void ListenShootingInputs()
     {
-        if (Weapon == null)
-            return;
+        var rangedWeapon = Weapon as RangedWeapon;
+        if (Input.GetButtonDown("Fire"))
+            rangedWeapon.PullTrigger();
+        else if (Input.GetButtonUp("Fire"))
+            rangedWeapon.ReleaseTrigger();
 
-        if(Weapon is RangedWeapon)
+        if (Input.GetButtonDown("Aim"))
         {
-            var rangedWeapon = Weapon as RangedWeapon;
-            if (Input.GetButtonDown("Fire"))
-                rangedWeapon.PullTrigger();
-            else if (Input.GetButtonUp("Fire"))
-                rangedWeapon.ReleaseTrigger();
-
-            if (Input.GetButtonDown("Aim"))
-            {
-                rangedWeapon.StartAiming();
-                cameraController.FieldOfView /= 1.5f;
-            }
-            else if (Input.GetButtonUp("Aim"))
-            {
-                rangedWeapon.StopAiming();
-                cameraController.FieldOfView *= 1.5f;
-            }
-
-            if (Input.GetButtonDown("Firemode"))
-                if (rangedWeapon is Firearm)
-                    (rangedWeapon as Firearm).CycleMode();
-
-            if (Input.GetButtonDown("Reload"))
-                if (rangedWeapon is Firearm)
-                    (rangedWeapon as Firearm).Reload();
+            rangedWeapon.StartAiming();
+            cameraController.FieldOfView /= 1.5f;
         }
-        else if (Weapon is MeleeWeapon)
+        else if (Input.GetButtonUp("Aim"))
         {
-            var meleeWeapon = Weapon as MeleeWeapon;
-            if (Input.GetButtonDown("Fire"))
-                meleeWeapon.QuickStrike();
-
-            if (Input.GetButtonDown("Aim"))
-            {
-                meleeWeapon.Parry(true);
-                cameraController.FieldOfView /= 1.5f;
-            }
-            else if (Input.GetButtonUp("Aim"))
-            {
-                meleeWeapon.Parry(false);
-                cameraController.FieldOfView *= 1.5f;
-            }
-
-            if (Input.GetButtonDown("Firemode"))
-                meleeWeapon.StrongStrike();
-
-            if (Input.GetButtonDown("Reload"))
-                meleeWeapon.SprecialStrike();
+            rangedWeapon.StopAiming();
+            cameraController.FieldOfView *= 1.5f;
         }
+
+        if (Input.GetButtonDown("Firemode"))
+            if (rangedWeapon is Firearm)
+                (rangedWeapon as Firearm).CycleMode();
+
+        if (Input.GetButtonDown("Reload"))
+            if (rangedWeapon is Firearm)
+                (rangedWeapon as Firearm).Reload();
+        
     }
 
     private void SetWeaponDirection()

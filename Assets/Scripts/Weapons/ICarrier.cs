@@ -15,5 +15,7 @@ public interface ICarrier
 
     #region Melee
     Animator Animator { get; }
+
+    void Parried();
     #endregion
 }

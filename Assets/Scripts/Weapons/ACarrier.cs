@@ -4,16 +4,13 @@ using UnityEngine;
 public abstract class ACarrier : MonoBehaviour, ICarrier
 {
     public GameObject hand;
-    protected virtual GameObject Hand
-    {
-        get
-        {
+    protected virtual GameObject Hand {
+        get {
             return hand;
         }
     }
 
     public virtual AWeapon Weapon { get; protected set; }
-
     public Animator Animator {
         get {
             return GetComponent<Animator>();
@@ -52,6 +49,6 @@ public abstract class ACarrier : MonoBehaviour, ICarrier
     }
 
     public abstract void ApplyRecoil(Vector3 recoil);
-
     public abstract bool CanSwap(AWeapon newWeapon);
+    public abstract void Parried();
 }

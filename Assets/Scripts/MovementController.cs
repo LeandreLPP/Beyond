@@ -58,6 +58,7 @@ public class MovementController : MonoBehaviour {
         }
     }
 
+    public bool AnimationDriven { get; set; }
     public bool Jump()
     {
         if (!Grounded)
@@ -79,7 +80,11 @@ public class MovementController : MonoBehaviour {
         controller = GetComponent<CharacterController>();
 	}
 
-	void FixedUpdate () {
+	void FixedUpdate ()
+    {
+        if (AnimationDriven)
+            return;
+
         // Compute next movement
         float movementSpeed = 0f;
         switch (MovementState)

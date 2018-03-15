@@ -40,4 +40,9 @@ public class BasicCarrier : ACarrier
         return true;
     }
     #endregion
+    
+    public override void Parried()
+    {
+        Animator.SetTrigger("Parried");
+    }
 }

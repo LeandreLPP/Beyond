@@ -18,9 +18,9 @@ public class RackDisplay : ACarrier {
         var carrier = other.gameObject.GetComponent<ICarrier>();
         if (carrier != null)
         {
-            if (carrier.CanEquip(Weapon))
+            if (carrier.CanSwap(Weapon))
             {
-                var weapExt = carrier.Weapon;
+                var weapExt = carrier.UnequipWeapon();
                 carrier.Equip(Weapon);
                 Equip(weapExt);
             }
@@ -43,4 +43,9 @@ public class RackDisplay : ACarrier {
     }
 
     public override void ApplyRecoil(Vector3 recoil) { }
+
+    public override void Parried()
+    {
+        throw new System.NotImplementedException();
+    }
 }
