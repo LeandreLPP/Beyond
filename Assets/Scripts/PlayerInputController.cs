@@ -57,11 +57,21 @@ public class PlayerInputController : MonoBehaviour {
 
         // Toggle crouch
         if (Input.GetButtonDown("Crouch"))
-            moveController.Crouching = !moveController.Crouching;
+        {
+            if(moveController.Crouching && moveController.CanStandUp)
+                moveController.Crouching = false;
+            else if(!moveController.Crouching)
+                moveController.Crouching = true;
+        }
 
         // Jump
         if (Input.GetButtonDown("Jump"))
-            moveController.Jump();
+        {
+            if (moveController.Crouching && moveController.CanStandUp)
+                moveController.Crouching = false;
+            else if(!moveController.Crouching)
+                moveController.Jump();
+        }
 
 
         // Compute direction

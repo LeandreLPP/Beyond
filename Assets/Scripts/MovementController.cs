@@ -59,6 +59,15 @@ public class MovementController : MonoBehaviour {
     }
 
     public bool AnimationDriven { get; set; }
+    public bool CanStandUp
+    {
+        get
+        {
+            int l = 1 << 9;
+            return !Physics.Raycast(transform.position, transform.up, 1f, l); ;
+        }
+    }
+
     public bool Jump()
     {
         if (!Grounded)
