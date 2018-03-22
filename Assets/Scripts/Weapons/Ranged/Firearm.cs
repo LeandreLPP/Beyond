@@ -186,7 +186,7 @@ public class Firearm : RangedWeapon
         {
             Damageable target = raycastHit.collider.gameObject.GetComponent<Damageable>();
             if (target != null)
-                target.TakeDamages(damage);
+                target.TakeDamages(damage, this);
         }
     }
 

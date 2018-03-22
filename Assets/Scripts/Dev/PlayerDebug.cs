@@ -20,7 +20,7 @@ public class PlayerDebug : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         // Debug
-        GetComponentInChildren<MeshRenderer>().material = movementController.Grounded ? materialGround : normal;
+        //GetComponentInChildren<MeshRenderer>().material = movementController.Grounded ? materialGround : normal;
 
         string allure = "";
         switch (movementController.MovementState)

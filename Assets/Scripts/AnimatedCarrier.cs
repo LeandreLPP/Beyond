@@ -21,6 +21,8 @@ public class AnimatedCarrier : MonoBehaviour
 
     public bool animationDriven = false;
 
+    public bool animationLocked = false;
+
     private void FixedUpdate()
     {
         if (Weapon == null) return;
@@ -30,5 +32,7 @@ public class AnimatedCarrier : MonoBehaviour
         Weapon.ParryActivated = parryActivated;
 
         GetComponent<MovementController>().AnimationDriven = animationDriven;
+
+        GetComponent<Animator>().SetBool("AnimationLocked", animationLocked);
     }
 }

@@ -23,10 +23,17 @@ public class ShooterHUD : MonoBehaviour {
 	void Update () {
         Firearm firearm = null;
 
-        if (shooter.Weapon != null && shooter.Weapon is Firearm)
-            firearm = shooter.Weapon as Firearm; 
-
         string text = "No weapon";
+
+        if (shooter.Weapon != null)
+        {
+            if (shooter.Weapon is Firearm)
+                firearm = shooter.Weapon as Firearm;
+            else
+                text = shooter.Weapon.gameObject.name;
+        }
+
+
         if (firearm != null)
         {
             text = firearm.Ammo + "/" + firearm.magazine + "\n";

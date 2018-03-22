@@ -27,7 +27,7 @@ public class DebugDamageable : Damageable {
         }
     }
 
-    public override void TakeDamages(float damageAmount)
+    public override void TakeDamages(float damageAmount, AWeapon source)
     {
         if(!changed)
         {
