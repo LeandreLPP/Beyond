@@ -15,7 +15,7 @@ public class RackDisplay : ACarrier {
 
     private void OnTriggerEnter(Collider other)
     {
-        var carrier = other.gameObject.GetComponent<ICarrier>();
+        var carrier = other.gameObject.GetComponent<ACarrier>();
         if (carrier != null)
         {
             if (carrier.CanSwap(Weapon))

@@ -21,7 +21,7 @@ public class DebugAttackDummy : MonoBehaviour {
             {
                 GetComponent<MovementController>().Direction = target.transform.position - transform.position;
                 transform.LookAt(target.transform);
-                (GetComponent<ICarrier>().Weapon as MeleeWeapon).QuickStrike();
+                (GetComponent<ACarrier>().Weapon as MeleeWeapon).QuickStrike();
             }
             else
             {

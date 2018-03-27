@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public interface ICarrier
+/*public interface ICarrier
 {
     AWeapon Weapon { get; }
 
@@ -18,4 +18,4 @@ public interface ICarrier
 
     void Parried();
     #endregion
-}
+}*/

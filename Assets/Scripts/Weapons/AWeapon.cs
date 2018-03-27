@@ -2,5 +2,5 @@
 
 public abstract class AWeapon : MonoBehaviour
 {
-    public virtual ICarrier Carrier { get; set; }
+    public virtual ACarrier Carrier { get; set; }
 }

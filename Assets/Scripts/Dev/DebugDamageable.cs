@@ -10,11 +10,13 @@ public class DebugDamageable : Damageable {
     private Material baseMaterial;
     private float lastChange;
     private bool changed;
-    new MeshRenderer renderer;
+    private MeshRenderer meshRenderer;
 
     // Use this for initialization
     void Start () {
-        renderer = GetComponentInChildren<MeshRenderer>();
+        meshRenderer = GetComponentInChildren<MeshRenderer>();
+        if (!meshRenderer)
+            meshRenderer = GetComponent<MeshRenderer>();
         changed = false;
 	}
 	
@@ -22,7 +24,7 @@ public class DebugDamageable : Damageable {
 	void Update () {
         if(changed && (Time.time - lastChange) >= delay)
         {
-            renderer.material = baseMaterial;
+            meshRenderer.material = baseMaterial;
             changed = false;
         }
     }
@@ -31,8 +33,8 @@ public class DebugDamageable : Damageable {
     {
         if(!changed)
         {
-            baseMaterial = renderer.material;
-            renderer.material = materialDamage;
+            baseMaterial = meshRenderer.material;
+            meshRenderer.material = materialDamage;
             changed = true;
         }
         lastChange = Time.time;

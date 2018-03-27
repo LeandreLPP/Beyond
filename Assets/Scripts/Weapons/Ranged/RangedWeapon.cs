@@ -15,7 +15,7 @@ public abstract class RangedWeapon : AWeapon  {
     #endregion
 
     #region IWeapon inheritance
-    public override ICarrier Carrier
+    public override ACarrier Carrier
     {
         get; set;
     }

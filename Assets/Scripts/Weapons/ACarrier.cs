@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class ACarrier : MonoBehaviour, ICarrier
+public abstract class ACarrier : MonoBehaviour//, ICarrier
 {
     public GameObject hand;
     protected virtual GameObject Hand {

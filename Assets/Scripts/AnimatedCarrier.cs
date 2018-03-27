@@ -1,17 +1,17 @@
 ﻿using System;
 using UnityEngine;
 
-[RequireComponent(typeof(ICarrier), typeof(MovementController))]
+[RequireComponent(typeof(ACarrier), typeof(MovementController))]
 public class AnimatedCarrier : MonoBehaviour
 {
     public MeleeWeapon Weapon
     {
         get
         {
-            if (GetComponent<ICarrier>().Weapon == null || !(GetComponent<ICarrier>().Weapon is MeleeWeapon))
+            if (GetComponent<ACarrier>().Weapon == null || !(GetComponent<ACarrier>().Weapon is MeleeWeapon))
                 return null;
 
-            return GetComponent<ICarrier>().Weapon as MeleeWeapon;
+            return GetComponent<ACarrier>().Weapon as MeleeWeapon;
         }
     }
 
@@ -25,14 +25,20 @@ public class AnimatedCarrier : MonoBehaviour
 
     private void FixedUpdate()
     {
+        GetComponent<MovementController>().AnimationDriven = animationDriven;
+        GetComponent<Animator>().SetBool("AnimationLocked", animationLocked);
+
         if (Weapon == null) return;
 
         Weapon.BaseDamages = baseDamages;
         Weapon.HitboxActivated = hitboxActivated;
-        Weapon.ParryActivated = parryActivated;
 
-        GetComponent<MovementController>().AnimationDriven = animationDriven;
+        GetComponent<ParryDamageable>().weapon = Weapon;
+        GetComponent<ParryDamageable>().isParrying = parryActivated;
 
-        GetComponent<Animator>().SetBool("AnimationLocked", animationLocked);
+        if (Weapon != null)
+            GetComponent<ParryDamageable>().strengh = Weapon.parryStrengh;
+        else
+            GetComponent<ParryDamageable>().isParrying = false;
     }
 }

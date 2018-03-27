@@ -57,8 +57,9 @@ public class MovementController : MonoBehaviour {
             transform.SetParent(value ? value.transform : null);
         }
     }
-
+    
     public bool AnimationDriven { get; set; }
+
     public bool CanStandUp
     {
         get
@@ -67,6 +68,7 @@ public class MovementController : MonoBehaviour {
             return !Physics.Raycast(transform.position, transform.up, 1f, l); ;
         }
     }
+
 
     public bool Jump()
     {
@@ -141,7 +143,7 @@ public class MovementController : MonoBehaviour {
             directionShift.Scale(new Vector3(1f, 0f, 1f)); // Make sure no movement in the Y axis is set in the direction
             movement = (lastMovement + (directionShift * midairSpeed)) * Time.fixedDeltaTime;
         }
-        movement += Physics.gravity/gravityDivider * Time.fixedDeltaTime;
+        movement += (Physics.gravity/gravityDivider) * Time.fixedDeltaTime;
         if(maxFallSpeed != 0) // Capped max fall speed
             movement.y = Mathf.Max(movement.y, -(Mathf.Abs(maxFallSpeed)));
 

@@ -4,9 +4,9 @@ using UnityEngine;
 public class MeleeWeapon : AWeapon
 {
     public string meleeTypeName;
-    public GameObject parryObject;
     public float weaponStrengh = 1;
     public float weaponSpeed = 1;
+    public float parryStrengh = 30;
 
     public float resetTime = 0.5f;
 
@@ -18,7 +18,7 @@ public class MeleeWeapon : AWeapon
     }
 
     protected Animator animator;
-    public override ICarrier Carrier {
+    public override ACarrier Carrier {
         get
         {
             return base.Carrier;
@@ -30,6 +30,8 @@ public class MeleeWeapon : AWeapon
                 animator.SetBool(meleeTypeName, false);
                 animator.SetFloat("meleeSpeed", 1f);
             }
+            HitboxActivated = false;
+            BaseDamages = 0f;
             base.Carrier = value;
             if (value != null)
             {
@@ -92,18 +94,6 @@ public class MeleeWeapon : AWeapon
             map.Remove(k);
     }
 
-    public virtual bool ParryActivated
-    {
-        get
-        {
-            return parryObject.activeInHierarchy;
-        }
-        set
-        {
-            parryObject.SetActive(value);
-        }
-    }
-
     public virtual bool HitboxActivated { get; set; }
     public virtual float BaseDamages { get; set; }
 
@@ -112,7 +102,7 @@ public class MeleeWeapon : AWeapon
         if (!HitboxActivated)
             return;
 
-        ICarrier c = other.GetComponent<ICarrier>();
+        ACarrier c = other.GetComponent<ACarrier>();
         if (c == Carrier)
             return;
 
